@@ -12,7 +12,7 @@ $ gcc ej1b.c -o ej1b.o
 $ chmod +x ej1a.o ej1b.o
 ```
 ```
-./ej1a.o
+$ ./ej1a.o
 ```
 #### Resultado
 ![result a](./images/ej1a.png)
