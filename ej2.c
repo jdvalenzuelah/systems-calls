@@ -7,6 +7,7 @@
 // Use code from https://stackoverflow.com/questions/26723437/using-read-system-call as reference
 
 /*
+* Copy content on fdi to fdo
 * Return the number of bytes read, or an error code on failure.
 */
 int copy_file(int fdi, int fdo){

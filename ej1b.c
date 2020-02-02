@@ -4,8 +4,9 @@
 int main() {
 	int f = fork();
 	if(f == 0) {
-		execl("ej1", (char*)NULL);
+		execl("ej1a.o", (char*)NULL);
 	} else{
-		printf("PID: %d\n", (int)getpid());
+		printf("PID B: %d\n", (int)getpid());
+		execl("ej1a.o", (char*)NULL);
 	}
 }
