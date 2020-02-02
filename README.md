@@ -1,5 +1,6 @@
 # Laboratorio #1 - Sistemas Operativos
-## Josue Valenzuela 171001
+## Autores:
+- Josue Valenzuela 171001
 
 ## Ejercicio 1
 ### Instrucciones de compilacion y ejecucion
