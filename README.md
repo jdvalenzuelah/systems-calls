@@ -59,11 +59,22 @@ El valor despues del \`=\` son el valor de retorno de las llamadas.
 - Para `write`, similar a `read`, retorna el numero de bytes que se escribieron al file descriptor.
 - En el caso de `close` retorna si el resultado de la llamada fie exitoso. 0 en caso de exito, -1 en caso de error.
 ### ¿Por qué entre las llamadas realizadas por usted hay un read vacío?
+El read vacio es cuando se llega al final del archivo (EOF)
 ### Identifique  tres  servicios  distintos  provistos  por  el  sistema  operativo  en  este `strace`.
+1. `lseek`: Cambia el offset que esta registrado en la descripcion del archivo. En el caso de la llamada `lseek(3, 64, SEEK_SET)` cambia el offset del file descriptor 3 a 64 byte, dado por el modo `SEEK_SET`.
+2. `mmap`: crea una nueva asignación en el espacio de direcciones virtuales de proceso de llamada. En el caso de `mmap(NULL, 92092, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fc456074000` crea una nueva asignacion de memoria de tamaño 92092, en modo lectura, privado, en el file descriptor 3, sin offset, el valor de retorno `0x7fc456074000` es la direccion de memoria donde se creo la asignacion.
+3. `munmap`: A diferencia de `mmap` en lugar de crear una asignacion de memoria esta la elimina. En el caso de la llamada `munmap(0x7fc456074000, 92092)`. Elmina la asignacion de memoria en la direccion de memoria `0x7fc4560740000` de tamaño 92092.
 
 ## Ejercicio 3
 ### ¿Qué ha modificado aquí,la interfaz de llamadas de sistemao el API?
+Se ha modificado la API del sistema, ya que se ha agregado a la lista de funciones que se pueden usar en el sistema, pero no es vital para el funcionamiento, ni forma parte obligatoriamente de las llamadas a sistema.
 ### ¿Por qué usamos el número de nuestra llamada de sistema en lugar de su nombre?
+Al no ser agregada a la interfaz de llamadas de sistema, nose encuentra en la lista que pueden ser llamadas solamente por el nombre.
 ### ¿Por qué las llamadas de sistema existentes como `read` o `fork` se pueden llamar por nombre?
+Estas forman parte de la interfaz de las llamadas a sistemas, lo cual agrega los nombres a la lista de llamadas reservadas que pueden llamarse solamente con el nombre.
+
 ### Ejecucion
+![grub](./images/customkernel.png)
 ![syscall](./images/ej3.png)
+
+El numero que se selecciono fue 24. 24 + 15 = 39.
